@@ -1576,6 +1576,7 @@
       if (b.getAttribute("data-go") === page) b.setAttribute("aria-current", "page");
       else b.removeAttribute("aria-current");
     });
+    window.scrollTo(0, 0);
   }
   function go(p){
     closeMenu();
@@ -1621,6 +1622,10 @@
     cookieNotice.style.display = "none";
     try { window.localStorage.setItem("cecCookieSeen", "1"); } catch (e) {}
   });
+
+  /* Always start at the top — stop the browser restoring an old scroll position on reload */
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
 
   render();
 })();
