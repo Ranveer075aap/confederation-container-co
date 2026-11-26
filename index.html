@@ -1467,6 +1467,14 @@
   </section>
 </template>
 
+<!-- Cookie notice: this site sets no cookies (see footer privacy line) -->
+<div id="cookieNotice" role="dialog" aria-label="Cookie notice" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:200;background:#1a1a1a;color:#fff;padding:.9rem 1rem;font-size:.9rem;line-height:1.45;box-shadow:0 -2px 12px rgba(0,0,0,.25)">
+  <div style="max-width:72rem;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;justify-content:space-between">
+    <span>This website does not use cookies and does not collect or store your personal information. Quote requests open in your own email app.</span>
+    <button type="button" id="cookieOk" style="flex-shrink:0;background:#b3402a;color:#fff;border:0;border-radius:.375rem;padding:.6rem 1.25rem;font-weight:600;cursor:pointer;min-height:2.75rem">OK, got it</button>
+  </div>
+</div>
+
 <script>
 (function(){
   "use strict";
@@ -1615,13 +1623,15 @@
   /* Cookie notice — site sets no cookies; banner is informational only */
   var cookieNotice = document.getElementById("cookieNotice");
   var cookieOk = document.getElementById("cookieOk");
-  try {
-    if (!window.localStorage.getItem("cecCookieSeen")) cookieNotice.style.display = "block";
-  } catch (e) { cookieNotice.style.display = "block"; }
-  cookieOk.addEventListener("click", function(){
-    cookieNotice.style.display = "none";
-    try { window.localStorage.setItem("cecCookieSeen", "1"); } catch (e) {}
-  });
+  if (cookieNotice && cookieOk) {
+    try {
+      if (!window.localStorage.getItem("cecCookieSeen")) cookieNotice.style.display = "block";
+    } catch (e) { cookieNotice.style.display = "block"; }
+    cookieOk.addEventListener("click", function(){
+      cookieNotice.style.display = "none";
+      try { window.localStorage.setItem("cecCookieSeen", "1"); } catch (e) {}
+    });
+  }
 
   /* Always start at the top — stop the browser restoring an old scroll position on reload */
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
@@ -1630,13 +1640,5 @@
   render();
 })();
 </script>
-
-<!-- Cookie notice: this site sets no cookies (see footer privacy line) -->
-<div id="cookieNotice" role="dialog" aria-label="Cookie notice" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:200;background:#1a1a1a;color:#fff;padding:.9rem 1rem;font-size:.9rem;line-height:1.45;box-shadow:0 -2px 12px rgba(0,0,0,.25)">
-  <div style="max-width:72rem;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;justify-content:space-between">
-    <span>This website does not use cookies and does not collect or store your personal information. Quote requests open in your own email app.</span>
-    <button type="button" id="cookieOk" style="flex-shrink:0;background:#b3402a;color:#fff;border:0;border-radius:.375rem;padding:.6rem 1.25rem;font-weight:600;cursor:pointer;min-height:2.75rem">OK, got it</button>
-  </div>
-</div>
 </body>
 </html>
